@@ -12,5 +12,5 @@ import javax.persistence.*;
 public class AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Long id;
 }

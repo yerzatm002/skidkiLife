@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -40,4 +41,7 @@ public class Sale extends AbstractBaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "establishment_id", referencedColumnName = "id")
     private Establishment establishment;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Calendar createdDate;
 }
