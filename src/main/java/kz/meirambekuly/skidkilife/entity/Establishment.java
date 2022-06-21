@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,15 @@ public class Establishment extends AbstractBaseEntity {
 
     @Column(name = "establishment_name")
     private String name;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Calendar createdDate;
+
+    @Column(name = "isActivated")
+    private Boolean isActivated = false;
+
+    @Column(name = "isEnabled")
+    private Boolean isEnabled = false;
 
     @Column(name = "address")
     private String address;
@@ -57,4 +67,8 @@ public class Establishment extends AbstractBaseEntity {
 
     @OneToMany(mappedBy = "establishment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sale> sales;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 }
