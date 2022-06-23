@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/skidkilife
+    url: jdbc:postgresql://localhost:5433/skidkilife
     username: postgres
     password: Windows12!@
   jpa:
@@ -15,3 +15,6 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 15MB
       max-request-size: 15MB
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
