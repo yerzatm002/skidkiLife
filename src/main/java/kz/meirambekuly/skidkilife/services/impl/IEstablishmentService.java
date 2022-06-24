@@ -1,6 +1,8 @@
 package kz.meirambekuly.skidkilife.services.impl;
 
 import kz.meirambekuly.skidkilife.config.PasswordEncoder.PasswordEncoder;
+import kz.meirambekuly.skidkilife.config.jwt.Jwt;
+import kz.meirambekuly.skidkilife.constants.Errors;
 import kz.meirambekuly.skidkilife.constants.EstablishmentTypes;
 import kz.meirambekuly.skidkilife.entity.Establishment;
 import kz.meirambekuly.skidkilife.entity.WorkSchedule;
@@ -11,6 +13,8 @@ import kz.meirambekuly.skidkilife.repositories.WorkScheduleRepository;
 import kz.meirambekuly.skidkilife.services.EstablishmentService;
 import kz.meirambekuly.skidkilife.specifications.EstablishmentSpecifications;
 import kz.meirambekuly.skidkilife.utilities.ErrorMessages;
+import kz.meirambekuly.skidkilife.utilities.ObjectMapper;
+import kz.meirambekuly.skidkilife.utilities.SecurityUtils;
 import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDetailsDto;
@@ -78,18 +82,43 @@ public class IEstablishmentService implements EstablishmentService {
         return ResultDto.builder()
                 .isSuccess(false)
                 .HttpStatus(HttpStatus.BAD_REQUEST.value())
-                .errorMessage(ErrorMessages.NOT_VALID_DATA)
+                .errorMessage("Not valid type!")
                 .build();
     }
 
-    @Override
-    public ResultDto<?> getToken() {
-        return null;
-    }
+//    @Override
+//    public ResultDto<?> getToken() {
+//        if (SecurityUtils.isAuthenticated()) {
+//            String token = Jwt.generateJwt(SecurityUtils.getCurrentUserLogin(), SecurityUtils.getAuthorities());
+//            return ResultDto.builder()
+//                    .isSuccess(true)
+//                    .HttpStatus(HttpStatus.OK.value())
+//                    .data(token)
+//                    .build();
+//        }
+//        return ResultDto.builder()
+//                .isSuccess(false)
+//                .HttpStatus(HttpStatus.UNAUTHORIZED.value())
+//                .errorMessage(Errors.UNAUTHORIZED)
+//                .build();
+//    }
 
     @Override
     public ResultDto<?> getLoggedUserInformation() {
-        return null;
+       Establishment establishment =  establishmentRepository.findByPhoneNumber(SecurityUtils.getCurrentUserLogin());
+       if(Objects.nonNull(establishment)){
+           EstablishmentDto dto = ObjectMapper.convertToEstablishmentDto(establishment);
+           return ResultDto.builder()
+                   .isSuccess(true)
+                   .HttpStatus(HttpStatus.OK.value())
+                   .data(dto)
+                   .build();
+       }
+       return ResultDto.builder()
+               .isSuccess(false)
+               .HttpStatus(HttpStatus.UNAUTHORIZED.value())
+               .errorMessage(Errors.UNAUTHORIZED)
+               .build();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 public interface EstablishmentService {
     ResultDto<?> register(EstablishmentCreatorDto dto);
 
-    ResultDto<?> getToken();
+//    ResultDto<?> getToken();
 
     ResultDto<?> getLoggedUserInformation();
 

@@ -1,8 +1,10 @@
 package kz.meirambekuly.skidkilife.utilities;
 
 import kz.meirambekuly.skidkilife.entity.Establishment;
+import kz.meirambekuly.skidkilife.entity.Role;
 import kz.meirambekuly.skidkilife.entity.Sale;
 import kz.meirambekuly.skidkilife.entity.WorkSchedule;
+import kz.meirambekuly.skidkilife.web.dto.RoleDto;
 import kz.meirambekuly.skidkilife.web.dto.WorkScheduleDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDetailsDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDto;
@@ -13,6 +15,13 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class ObjectMapper {
+
+    public static RoleDto convertToRoleDto(Role role){
+        return RoleDto.builder()
+                .id(role.getId())
+                .name(role.getName())
+                .build();
+    }
 
     public static WorkScheduleDto convertToWorkSchedulesDto(WorkSchedule workSchedule) {
         return WorkScheduleDto.builder()
