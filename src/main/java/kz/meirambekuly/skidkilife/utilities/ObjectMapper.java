@@ -1,5 +1,6 @@
 package kz.meirambekuly.skidkilife.utilities;
 
+import com.ibm.icu.text.Transliterator;
 import kz.meirambekuly.skidkilife.entity.Establishment;
 import kz.meirambekuly.skidkilife.entity.Role;
 import kz.meirambekuly.skidkilife.entity.Sale;
@@ -15,6 +16,11 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class ObjectMapper {
+
+    public static String convertCyryllicToLatin(String text) {
+        Transliterator transliterator = Transliterator.getInstance("Cyrillic-Latin");
+        return transliterator.transliterate(text);
+    }
 
     public static RoleDto convertToRoleDto(Role role){
         return RoleDto.builder()

@@ -10,27 +10,27 @@ import java.util.List;
 public interface EstablishmentService {
     ResultDto<?> register(EstablishmentCreatorDto dto);
 
-//    ResultDto<?> getToken();
+    ResultDto<?> getToken();
 
     ResultDto<?> getLoggedUserInformation();
 
     ResultDto<?> update (EstablishmentCreatorDto dto);
 
-    EstablishmentDto findById (Long id);
+    ResultDto<?> findById (Long id);
 
-    EstablishmentDto findByPhoneNumber(String phoneNumber);
+    ResultDto<?> findByPhoneNumber(String phoneNumber);
 
     ResultDto<?> activateEstablishment(String phoneNumber, String code);
 
     ResultDto<?> checkPhoneNumber(String phoneNumber);
 
-    List<EstablishmentDetailsDto> findAll();
+    ResultDto<?> findAll();
 
-    List<EstablishmentDetailsDto> findAllByName(String name);
+    ResultDto<?> findAllByName(String name);
 
-    List<EstablishmentDetailsDto> findByAddress(String address);
+    ResultDto<?> findByAddress(String address);
 
-    List<EstablishmentDetailsDto> findByType(String type);
+    ResultDto<?> findByType(String type);
 
     void remove (Long id);
 }
