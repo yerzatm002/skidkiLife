@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EstablishmentController {
 
+
+
     @GetMapping
     public String sayHello(){
         return "Hello";
