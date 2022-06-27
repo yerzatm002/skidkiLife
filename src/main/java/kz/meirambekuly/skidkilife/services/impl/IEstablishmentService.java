@@ -329,6 +329,7 @@ public class IEstablishmentService implements EstablishmentService {
                 .build();
     }
 
+    @Transactional
     @Override
     public void remove(Long id) {
         establishmentRepository.deleteById(id);

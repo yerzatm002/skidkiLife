@@ -18,5 +18,4 @@ public class SaleCreatorDto{
     private Integer discount;
     private Date fromDate;
     private Date toDate;
-    private Long establishmentId;
 }
