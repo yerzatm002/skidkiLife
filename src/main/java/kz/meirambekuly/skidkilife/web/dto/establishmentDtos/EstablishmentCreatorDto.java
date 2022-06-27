@@ -1,6 +1,7 @@
 package kz.meirambekuly.skidkilife.web.dto.establishmentDtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.sql.Time;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@ApiModel(value = "EstablishmentCreatorDTO", description = "mandatory fields to create establishment")
+@ApiModel(value = "EstablishmentCreatorDTO", description = "mandatory fields to create establishment")
 public class EstablishmentCreatorDto{
     private String phoneNumber;
     private String password;

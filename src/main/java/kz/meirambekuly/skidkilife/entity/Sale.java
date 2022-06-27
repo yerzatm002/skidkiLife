@@ -1,16 +1,14 @@
 package kz.meirambekuly.skidkilife.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "establishments")
+@Table(name = "sales")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
