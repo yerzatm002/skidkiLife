@@ -1,0 +1,5 @@
+ALTER TABLE establishments
+ALTER COLUMN longitude TYPE DECIMAL;
+
+ALTER TABLE establishments
+ALTER COLUMN latitude TYPE DECIMAL;

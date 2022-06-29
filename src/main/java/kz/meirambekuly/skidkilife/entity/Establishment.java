@@ -37,10 +37,10 @@ public class Establishment extends AbstractBaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "longitude", columnDefinition = "DECIMAL")
+    @Column(name = "longitude", columnDefinition = "NUMERIC")
     private Double longitude;
 
-    @Column(name = "latitude", columnDefinition = "DECIMAL")
+    @Column(name = "latitude", columnDefinition = "NUMERIC")
     private Double latitude;
 
     @Column(name = "establishment_type")

@@ -33,4 +33,8 @@ public interface EstablishmentService {
     ResultDto<?> findByType(String type);
 
     void remove (Long id);
+
+    //TODO: send OTP to the phoneNumber
+    //TODO: changePassword
+    //TODO: resetPassword
 }
