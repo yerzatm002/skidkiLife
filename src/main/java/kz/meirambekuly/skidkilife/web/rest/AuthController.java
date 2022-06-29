@@ -59,6 +59,12 @@ public class AuthController {
                 .build());
     }
 
+    @PostMapping("/checkPhoneNumber")
+    @ApiOperation(value = "check phone number for an existing")
+    public ResponseEntity checkPhoneNumber(@ApiParam(value = "phone number")
+                                           @RequestParam("phoneNumber") String phoneNumber) {
+        return ResponseEntity.ok(establishmentService.checkPhoneNumber(phoneNumber));
+    }
 
 
 }
