@@ -61,10 +61,18 @@ public class AuthController {
 
     @PostMapping("/checkPhoneNumber")
     @ApiOperation(value = "check phone number for an existing")
-    public ResponseEntity checkPhoneNumber(@ApiParam(value = "phone number")
+    public ResponseEntity<?> checkPhoneNumber(@ApiParam(value = "phone number")
                                            @RequestParam("phoneNumber") String phoneNumber) {
         return ResponseEntity.ok(establishmentService.checkPhoneNumber(phoneNumber));
     }
 
-
+    @PostMapping("/activate")
+    @ApiOperation(value = "Activate establishment by phone number")
+    public ResponseEntity<?> activateEstablishment(@ApiParam(value = "phone number")
+                                                   @RequestParam("phoneNumber") String phoneNumber,
+                                                   @ApiParam(value = "sms code")
+                                                   @RequestParam("code") String code){
+        return ResponseEntity.ok(establishmentService.activateEstablishment(phoneNumber, code));
+    }
+    
 }
