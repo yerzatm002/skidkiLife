@@ -1,13 +1,12 @@
 package kz.meirambekuly.skidkilife.web.rest;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import kz.meirambekuly.skidkilife.services.EstablishmentService;
 import kz.meirambekuly.skidkilife.utilities.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(Constants.PUBLIC_ENDPOINT + "/establishment")
@@ -40,5 +39,6 @@ public class EstablishmentController {
     public ResponseEntity<?> findById(@RequestParam("id") Long id){
         return ResponseEntity.ok(establishmentService.findById(id));
     }
+
 
 }
