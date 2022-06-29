@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Sale extends AbstractBaseEntity{
 
-    @Column(name = "title")
+    @Column(name = "title", columnDefinition = "TEXT")
     private String title;
 
     @Column(name = "description", columnDefinition = "TEXT")

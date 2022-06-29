@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/skidkilife
+    url: jdbc:postgresql://localhost:5432/skidkitest
     username: postgres
     password: Windows12!@
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -15,6 +15,15 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 15MB
       max-request-size: 15MB
+  flyway:
+    baseline-on-migrate: true
+
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+    basedir: /var/app/skidkiLife
+  port: 17080
 
 application:
   bucket-name: skidkilife.appspot.com

@@ -1,5 +1,6 @@
 package kz.meirambekuly.skidkilife.web.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -35,6 +36,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ApiOperation(value = "user login")
+    @Timed
     public ResponseEntity<?> login(@RequestParam("phoneNumber") String phoneNumber,
                                    @RequestParam("password") String password){
         if(phoneNumber.isEmpty() && password.isEmpty()){
