@@ -6,7 +6,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import kz.meirambekuly.skidkilife.config.jwt.Jwt;
 import kz.meirambekuly.skidkilife.constants.Errors;
-import kz.meirambekuly.skidkilife.services.EstablishmentService;
+import kz.meirambekuly.skidkilife.services.*;
+import kz.meirambekuly.skidkilife.services.impl.IEstablishmentService;
 import kz.meirambekuly.skidkilife.utilities.Constants;
 import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
@@ -18,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping(Constants.PUBLIC_ENDPOINT + "/auth")
 @RequiredArgsConstructor
@@ -27,10 +30,9 @@ public class AuthController {
     private final EstablishmentService establishmentService;
     private final AuthenticationManager authenticationManager;
 
-
     @PostMapping("/register")
     @ApiOperation(value = "user registration")
-    public ResponseEntity<?> register (@ApiParam(value = "DTO for user registration") @RequestBody EstablishmentCreatorDto dto){
+    public ResponseEntity<?> register (@ApiParam(value = "DTO for user registration") @RequestBody EstablishmentCreatorDto dto) throws ExecutionException, InterruptedException {
         return ResponseEntity.ok(establishmentService.register(dto));
     }
 

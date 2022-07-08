@@ -22,6 +22,7 @@ public class EstablishmentCreatorDto{
     private Double latitude;
     private String type;
     private String description;
+    private Long cityId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private Time fromWorkSchedule;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")

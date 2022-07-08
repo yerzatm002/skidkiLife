@@ -1,5 +1,6 @@
 package kz.meirambekuly.skidkilife.web.dto.establishmentDtos;
 
+import kz.meirambekuly.skidkilife.web.dto.CityDto;
 import kz.meirambekuly.skidkilife.web.dto.WorkScheduleDto;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class EstablishmentDetailsDto {
     private String description;
     private Time fromWorkSchedule;
     private Time toWorkSchedule;
+    private CityDto cityDto;
     private Set<WorkScheduleDto> workSchedule;
 }

@@ -66,6 +66,10 @@ public class Establishment extends AbstractBaseEntity {
     @OneToMany(mappedBy = "establishment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sale> sales;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city", referencedColumnName = "id")
+    private City city;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
