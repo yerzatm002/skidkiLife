@@ -2,7 +2,7 @@ package kz.meirambekuly.skidkilife.web.rest;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import kz.meirambekuly.skidkilife.services.EstablishmentService;
+import kz.meirambekuly.skidkilife.services.*;
 import kz.meirambekuly.skidkilife.services.SaleService;
 import kz.meirambekuly.skidkilife.utilities.Constants;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;

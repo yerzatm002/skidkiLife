@@ -1,12 +1,12 @@
 package kz.meirambekuly.skidkilife.web.rest;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import kz.meirambekuly.skidkilife.services.EstablishmentService;
+
 import kz.meirambekuly.skidkilife.utilities.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import kz.meirambekuly.skidkilife.services.*;
+
 
 @RestController
 @RequestMapping(Constants.PUBLIC_ENDPOINT + "/establishment")

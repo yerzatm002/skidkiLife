@@ -2,13 +2,12 @@ package kz.meirambekuly.skidkilife.services;
 
 import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
-import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDetailsDto;
-import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDto;
 
-import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 
 public interface EstablishmentService {
-    ResultDto<?> register(EstablishmentCreatorDto dto);
+    ResultDto<?> register(EstablishmentCreatorDto dto) throws ExecutionException, InterruptedException;
 
     ResultDto<?> getToken();
 
@@ -34,7 +33,8 @@ public interface EstablishmentService {
 
     void remove (Long id);
 
-    //TODO: send OTP to the phoneNumber
-    //TODO: changePassword
-    //TODO: resetPassword
+    ResultDto<?> changePassword(String oldPassword, String newPassword);
+
+    ResultDto<?> resetPassword(String phoneNumber);
+
 }

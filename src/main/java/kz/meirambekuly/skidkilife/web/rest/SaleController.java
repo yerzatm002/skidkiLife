@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(Constants.PUBLIC_ENDPOINT + "sales")
+@RequestMapping(Constants.PUBLIC_ENDPOINT + "/sales")
 @RequiredArgsConstructor
 public class SaleController {
 
