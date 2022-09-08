@@ -155,4 +155,29 @@ public class ISaleService implements SaleService {
                 .HttpStatus(HttpStatus.UNAUTHORIZED.value())
                 .errorMessage(Errors.UNAUTHORIZED)
                 .build();    }
+
+    @Override
+    public ResultDto<?> findSalesOfEstablishmentById(Long id) {
+        Optional<Establishment> establishment = establishmentRepository.findById(id);
+        if(establishment.isPresent()){
+            List<Sale> sales = saleRepository.findAllByEstablishment(establishment.get());
+            if(!sales.isEmpty()){
+                return ResultDto.builder()
+                        .isSuccess(true)
+                        .data(sales)
+                        .HttpStatus(HttpStatus.OK.value())
+                        .build();
+            }
+            return ResultDto.builder()
+                    .isSuccess(false)
+                    .HttpStatus(HttpStatus.NO_CONTENT.value())
+                    .errorMessage("Establishment does not have any sales")
+                    .build();
+        }
+        return ResultDto.builder()
+                .isSuccess(false)
+                .HttpStatus(HttpStatus.NO_CONTENT.value())
+                .errorMessage("There is no establishment with such id")
+                .build();
+    }
 }

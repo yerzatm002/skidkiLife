@@ -434,6 +434,9 @@ public class IEstablishmentService implements EstablishmentService{
                     .HttpStatus(HttpStatus.OK.value())
                     .data(Constants.PREFIX + Jwt.generateJwt(phoneNumber, (Collection<? extends GrantedAuthority>) employee.get().getRole()))
                     .build();
+            //TODO: change login for establishment
+            //TODO: change the JWT token generation to roleDto
+
         }
         return ResultDto.builder()
                 .isSuccess(false)

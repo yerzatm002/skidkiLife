@@ -26,5 +26,8 @@ public class SaleController {
         return ResponseEntity.ok(saleService.findById(id));
     }
 
-
+    @GetMapping("/findSalesOfEstablishment")
+    public ResponseEntity<?> findSalesOfEstablishmentById(@RequestParam("id") Long id){
+        return ResponseEntity.ok(saleService.findSalesOfEstablishmentById(id));
+    }
 }
