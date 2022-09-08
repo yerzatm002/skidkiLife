@@ -24,4 +24,12 @@ public class EstablishmentSpecifications {
         return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("type"), type));
     }
 
+    public static Specification<Establishment> findByPhoneNumberAndPassword(String phoneNumber, String password){
+        return ((root, criteriaQuery, criteriaBuilder) -> {
+            criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber),
+                    criteriaBuilder.equal(root.get("password"), password)));
+            return null;
+        });
+    }
+
 }

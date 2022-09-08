@@ -6,10 +6,7 @@ import kz.meirambekuly.skidkilife.config.PasswordEncoder.PasswordEncoder;
 import kz.meirambekuly.skidkilife.config.jwt.Jwt;
 import kz.meirambekuly.skidkilife.constants.Errors;
 import kz.meirambekuly.skidkilife.constants.EstablishmentTypes;
-import kz.meirambekuly.skidkilife.entity.Employee;
-import kz.meirambekuly.skidkilife.entity.Establishment;
-import kz.meirambekuly.skidkilife.entity.SmsVerification;
-import kz.meirambekuly.skidkilife.entity.WorkSchedule;
+import kz.meirambekuly.skidkilife.entity.*;
 import kz.meirambekuly.skidkilife.repositories.*;
 import kz.meirambekuly.skidkilife.services.EstablishmentService;
 import kz.meirambekuly.skidkilife.specifications.EmployeeSpecifications;
@@ -23,12 +20,14 @@ import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.RoleDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentDto;
+import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablsihmentLoginDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -138,6 +137,31 @@ public class IEstablishmentService implements EstablishmentService{
                 .HttpStatus(HttpStatus.BAD_REQUEST.value())
                 .errorMessage("Not valid type!")
                 .build();
+    }
+
+    @Override
+    public ResultDto<?> login(EstablsihmentLoginDto dto) {
+        Optional<Establishment> establishment = establishmentRepository.findOne(EstablishmentSpecifications
+                .findByPhoneNumberAndPassword(dto.getPhoneNumber(), PasswordEncoder.hashcode(dto.getPassword())));
+        Optional<SmsVerification> verification = smsVerificationRepository
+                .findOne(SMSVerificationSpecifications.findVerificationByPhoneNumber(dto.getPhoneNumber()));
+        if (verification.isPresent()) {
+            return ResultDto.builder()
+                    .isSuccess(false)
+                    .HttpStatus(HttpStatus.UNAUTHORIZED.value())
+                    .errorMessage("Verify phone number")
+                    .build();
+        }
+        if(establishment.isPresent()){
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + establishment.get().getRole().getName()));
+            return ResultDto.builder()
+                    .isSuccess(true)
+                    .HttpStatus(HttpStatus.OK.value())
+                    .data(Constants.PREFIX + Jwt.generateJwt(dto.getPhoneNumber(),authorities))
+                    .build();
+        }
+        return null;
     }
 
     @Override
@@ -429,14 +453,13 @@ public class IEstablishmentService implements EstablishmentService{
         Optional<Employee> employee = employeeRepository.findOne(
                 EmployeeSpecifications.findEmployeeByPhoneNumberAndPassword(phoneNumber, PasswordEncoder.hashcode(password)));
         if(employee.isPresent()){
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + employee.get().getRole().getName()));
             return ResultDto.builder()
                     .isSuccess(true)
                     .HttpStatus(HttpStatus.OK.value())
-                    .data(Constants.PREFIX + Jwt.generateJwt(phoneNumber, (Collection<? extends GrantedAuthority>) employee.get().getRole()))
+                    .data(Constants.PREFIX + Jwt.generateJwt(phoneNumber, authorities))
                     .build();
-            //TODO: change login for establishment
-            //TODO: change the JWT token generation to roleDto
-
         }
         return ResultDto.builder()
                 .isSuccess(false)
