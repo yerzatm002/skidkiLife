@@ -11,10 +11,12 @@ import kz.meirambekuly.skidkilife.services.impl.IEstablishmentService;
 import kz.meirambekuly.skidkilife.utilities.Constants;
 import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
+import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablsihmentLoginDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -32,33 +34,16 @@ public class AuthController {
 
     @PostMapping("/register")
     @ApiOperation(value = "user registration")
-    public ResponseEntity<?> register (@ApiParam(value = "DTO for user registration") @RequestBody EstablishmentCreatorDto dto) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> register (@ApiParam(value = "DTO for user registration")
+                                           @RequestBody EstablishmentCreatorDto dto) throws ExecutionException, InterruptedException {
         return ResponseEntity.ok(establishmentService.register(dto));
     }
 
-    @PostMapping("/login")
-    @ApiOperation(value = "user login")
-    @Timed
-    public ResponseEntity<?> login(@RequestParam("phoneNumber") String phoneNumber,
-                                   @RequestParam("password") String password){
-        if(phoneNumber.isEmpty() && password.isEmpty()){
-            throw new RuntimeException("Not Valid Fields");
-        }
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(phoneNumber, password));
-        if (authentication.isAuthenticated()) {
-            String token = Jwt.generateJwt(authentication.getName(), authentication.getAuthorities());
-            return ResponseEntity.ok(ResultDto.builder()
-                    .isSuccess(true)
-                    .HttpStatus(HttpStatus.OK.value())
-                    .data(token)
-                    .build());
-        }
-        return ResponseEntity.ok(ResultDto.builder()
-                .isSuccess(false)
-                .HttpStatus(HttpStatus.UNAUTHORIZED.value())
-                .errorMessage(Errors.UNAUTHORIZED)
-                .build());
+    @PostMapping("/loginEstablishment")
+    @ApiOperation(value = "login establishment")
+    public ResponseEntity<?> login (@ApiParam(value = "DTO for establishment login")
+                                        @RequestBody EstablsihmentLoginDto dto){
+        return ResponseEntity.ok(establishmentService.login(dto));
     }
 
     @PostMapping("/checkPhoneNumber")

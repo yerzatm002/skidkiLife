@@ -2,12 +2,15 @@ package kz.meirambekuly.skidkilife.services;
 
 import kz.meirambekuly.skidkilife.web.dto.ResultDto;
 import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablishmentCreatorDto;
+import kz.meirambekuly.skidkilife.web.dto.establishmentDtos.EstablsihmentLoginDto;
 
 import java.util.concurrent.ExecutionException;
 
 
 public interface EstablishmentService {
     ResultDto<?> register(EstablishmentCreatorDto dto) throws ExecutionException, InterruptedException;
+
+    ResultDto<?> login(EstablsihmentLoginDto dto);
 
     ResultDto<?> getToken();
 
