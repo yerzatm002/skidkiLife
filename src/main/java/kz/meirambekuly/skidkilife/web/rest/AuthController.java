@@ -76,5 +76,12 @@ public class AuthController {
                                                    @RequestParam("code") String code){
         return ResponseEntity.ok(establishmentService.activateEstablishment(phoneNumber, code));
     }
+
+    @PostMapping("/admin/login")
+    @ApiOperation(value = "admin crm login")
+    public ResponseEntity<?> loginAdmin(@RequestParam("phoneNumber") String phoneNumber,
+                                        @RequestParam("password") String password){
+        return ResponseEntity.ok(establishmentService.loginAdmin(phoneNumber,password));
+    }
     
 }

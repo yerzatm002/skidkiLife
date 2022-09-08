@@ -12,4 +12,5 @@ public interface SaleService {
     void remove (Long id);
     ResultDto<?> findAll();
     ResultDto<?> findAllByPrincipal();
+    ResultDto<?> findSalesOfEstablishmentById(Long id);
 }

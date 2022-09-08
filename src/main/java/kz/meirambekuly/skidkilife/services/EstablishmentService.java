@@ -37,4 +37,5 @@ public interface EstablishmentService {
 
     ResultDto<?> resetPassword(String phoneNumber);
 
+    ResultDto<?> loginAdmin(String phoneNumber, String password);
 }
